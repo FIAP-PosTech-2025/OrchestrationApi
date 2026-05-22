@@ -99,14 +99,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__MS_CatalogAPI=Server=sqlserver,1433;Database=MS_CatalogAPI;User Id=sa;Password=Senha@123;TrustServerCertificate=True
-      - MongoDB__ConnectionString=mongodb://root:root@mongodb:27017
+      - MongoDB__ConnectionString=mongodb://root:root@mongodb:27017/?authSource=admin
       - MongoDB__DatabaseName=MS_CatalogAPI
       - RabbitMQ__Host=rabbitmq
       - RabbitMQ__Username=admin
       - RabbitMQ__Password=admin
       - Jwt__Key=af3b1d967c45e0df2b84ca91fe3a9d6f1148e2c0e9b7d04a51f396cb8f0a7d32
-      - Jwt__Issuer=CatalogAPI
-      - Jwt__Audience=https://api.CatalogAPI.com
+      - Jwt__Issuer=UserAPI
+      - Jwt__Audience=https://api.UserAPI.com
       - Serilog__WriteTo__0__Args__databaseUrl=mongodb://root:root@mongodb:27017/logs_dev?authSource=admin
 
   payments-api:

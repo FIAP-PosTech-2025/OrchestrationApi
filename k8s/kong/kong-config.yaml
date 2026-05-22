@@ -41,8 +41,8 @@
 #     Nome identificador do consumer no Kong.
 #     Valor livre — usado apenas para identificação interna.
 #
-#   key: OrchestrationAPI
-#     Deve ser IGUAL ao campo Jwt__Issuer do secret.yaml da UsersAPI.
+#   key: OrchestrationAPI / UserAPI
+#     Deve ser IGUAL ao campo Jwt__Issuer do configmap.yaml da UsersAPI.
 #     O token JWT carrega esse valor no campo 'iss' (issuer).
 #     O Kong usa o 'iss' para localizar o consumer correto
 #     e buscar o secret para validar a assinatura.
@@ -58,6 +58,10 @@
 #       Kong verifica com a mesma chave → "abre o cadeado pra checar"
 #
 #     Se as chaves forem diferentes → Kong rejeita com 401.
+#
+#   Dois consumers cadastrados para aceitar tokens de ambos os issuers:
+#     - OrchestrationAPI (issuer antigo — compatibilidade)
+#     - UserAPI (issuer atual da UsersAPI)
 #
 # ─────────────────────────────────────────────────────────────
 apiVersion: v1
@@ -132,4 +136,9 @@ data:
       - username: orchestration-api
         jwt_secrets:
           - key: OrchestrationAPI
+            secret: af3b1d967c45e0df2b84ca91fe3a9d6f1148e2c0e9b7d04a51f396cb8f0a7d32
+
+      - username: users-api
+        jwt_secrets:
+          - key: UserAPI
             secret: af3b1d967c45e0df2b84ca91fe3a9d6f1148e2c0e9b7d04a51f396cb8f0a7d32

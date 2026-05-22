@@ -78,17 +78,43 @@ UsersAPI e CatalogAPI expõem métricas no formato Prometheus (`/metrics`). O Gr
 | **Prometheus** | Coleta de metricas dos microsservicos | `9090` |
 | **Grafana** | Dashboards de observabilidade | `3000` |
 
-
-
 ---
+
+## Clonar os repositorios
+
+Clone todos os repositorios na **mesma pasta pai**:
+
+```bash
+git clone https://github.com/pablosdlima/OrchestrationApi
+git clone https://github.com/marciotorquato/UsersAPI
+git clone https://github.com/marciotorquato/CatalogAPI
+git clone https://github.com/marciotorquato/PaymentsAPI
+git clone https://github.com/marciotorquato/NotificationsAPI
+```
+
+A estrutura de pastas deve ficar assim:
+
+```
+Projeto/
+├── OrchestrationApi/       <- este repositorio
+│   ├── docker-compose.yml
+│   ├── k8s/
+│   ├── observability/
+│   └── start-ecosystem.ps1
+├── UsersAPI/
+├── CatalogAPI/
+├── PaymentsAPI/
+└── NotificationsAPI/
+```
+
 
 ## Inicio Rapido — Script Automatico (Recomendado)
 
-O script `start-ecosystem.ps1` executa todas as etapas abaixo de forma automatica e aguarda cada servico ficar disponivel antes de prosseguir.
+O script `start-ecosystem.ps1` executa todas as etapas do "passo a passo manual" de forma automatica e aguarda cada servico ficar disponivel antes de prosseguir.
 
 **Requisitos:** Docker Desktop em execucao e PowerShell.
 
-Navegar até o diretório que contenha o arquivo start-ecosystem.ps1 e executar o comando:
+Navegar até o diretório do projeto OrchestrationAPI que contenha o arquivo start-ecosystem.ps1 e executar o comando:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ".\start-ecosystem.ps1"
@@ -111,6 +137,7 @@ Referencia rapida de todas as ferramentas do ecossistema apos subir o ambiente.
 | **MongoDB** (Mongo Express) | http://localhost:8081 | `admin` | `admin` | Banco de dados NoSQL |
 | **Grafana** (Dashboards) | http://localhost:3000 | `admin` | `admin` | Metricas e observabilidade |
 | **Prometheus** | http://localhost:9090 | — | — | Coleta de metricas |
+| **Prometheus** | http://localhost:9090/targets | — | — | Métricas criadas |
 | **LocalStack** (Health) | http://localhost:4566/_localstack/health | — | — | Status dos servicos AWS emulados |
 | **Redis** | `redis:6379` (interno) | — | — | Sem interface web — use `docker exec redis redis-cli` |
 | **Kong** (Proxy) | http://localhost:8000 | — | — | Entrada unica para UsersAPI e CatalogAPI |
@@ -150,34 +177,7 @@ kubectl delete all --all
 
 ---
 
-### Etapa 1 — Clonar os repositorios
 
-Clone todos os repositorios na **mesma pasta pai**:
-
-```bash
-git clone https://github.com/pablosdlima/OrchestrationApi
-git clone https://github.com/marciotorquato/UsersAPI
-git clone https://github.com/marciotorquato/CatalogAPI
-git clone https://github.com/marciotorquato/PaymentsAPI
-git clone https://github.com/marciotorquato/NotificationsAPI
-```
-
-A estrutura de pastas deve ficar assim:
-
-```
-Projeto/
-├── OrchestrationApi/       <- este repositorio
-│   ├── docker-compose.yml
-│   ├── k8s/
-│   ├── observability/
-│   └── start-ecosystem.ps1
-├── UsersAPI/
-├── CatalogAPI/
-├── PaymentsAPI/
-└── NotificationsAPI/
-```
-
----
 
 ### Etapa 2 — Subir infraestrutura e microsservicos
 

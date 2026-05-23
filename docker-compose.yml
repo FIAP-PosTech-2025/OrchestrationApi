@@ -145,6 +145,11 @@ services:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
+      KONG_DNS_RESOLVER: "127.0.0.11"
+    dns:
+      - 127.0.0.11
+    dns_opt:
+     - ndots:0
     ports:
       - "8000:8000"
       - "8001:8001"
